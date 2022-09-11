@@ -1,8 +1,9 @@
 // Assignment code here
 var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-var specialCharacters = ["!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", ">", "=", "?", "@", "[", "]", "^", "_", "`", "}", "{", "~"]
+var symbols = ["!", '"', "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", ">", "=", "?", "@", "[", "]", "^", "_", "`", "}", "{", "~"]
 var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 var numbers = [0,1,2,3,4,5,6,7,8,9]
+var randomPassword = []
 
 function generatePassword() {
     //1.Ask for password length, if outside 8-128 return to prompt
@@ -21,36 +22,37 @@ function generatePassword() {
         alert("Please choose to include at least one type of character.")
         return generatePassword()
     }
-    //4.Either gen. password from one combined array or get random character from each and push them
-    var included = []
+    //4.If criteria is selected add to included array, define new array each time
+    included = []
 
-    if (includeUpper === true) {included.push(upperCase)}
-    if (includeLower === true) {included.push(lowerCase)}
-    if (includeSymbols === true) {included.push(specialCharacters)}
-    if (includeNumbers === true) {included.push(numbers)}
-
-    console.log("included " + [included])
-    
-    var randomArray = []
-    // Produces passwordLength # of arrays and are only the first included criteria?
-    //Might redefine 'included' after 1st push
-    for (var i = 0; i < passwordLength; i++) {
-        var randomChar = included[Math.floor(Math.random()*passwordLength.length)];
-        randomArray.push(randomChar);
-        console.log("randomArray " + randomArray)
+    if (includeUpper === true) {
+        inclued = included.concat(upperCase)
+    }
+    if (includeLower === true) {
+        included = included.concat(lowerCase)
+    }
+    if (includeSymbols === true) {
+        included = included.concat(symbols)
+    }
+    if (includeNumbers === true) {
+        included = included.concat(numbers)
+    }
+    console.log("included " + included)
+    // Loops through the included array to get a random element passwordLength.length # of times 
+    for (i = 0; i < passwordLength; i++) {
+        randomPassword.push(included[Math.floor(Math.random()*included.length)]);
+    }
     }
     
-}
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  generatePassword();
   var passwordText = document.querySelector("#password");
 
-  passwordText.value = password;
+  passwordText.value = randomPassword.join("");
 
 }
 
