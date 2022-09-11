@@ -22,7 +22,14 @@ function generatePassword() {
         return generatePassword()
     }
     //4.Either gen. password from one combined array or get random character from each and push them
-    
+    var included = []
+
+    if (includeUpper === true) {included.push(upperCase)}
+    if (includeLower === true) {included.push(lowerCase)}
+    if (includeSymbols === true) {included.push(specialCharacters)}
+    if (includeNumbers === true) {included.push(numbers)}
+
+    console.log("included " + [included])
 }
 
 // Get references to the #generate element
