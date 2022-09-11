@@ -30,6 +30,16 @@ function generatePassword() {
     if (includeNumbers === true) {included.push(numbers)}
 
     console.log("included " + [included])
+    
+    var randomArray = []
+    // Produces passwordLength # of arrays and are only the first included criteria?
+    //Might redefine 'included' after 1st push
+    for (var i = 0; i < passwordLength; i++) {
+        var randomChar = included[Math.floor(Math.random()*passwordLength.length)];
+        randomArray.push(randomChar);
+        console.log("randomArray " + randomArray)
+    }
+    
 }
 
 // Get references to the #generate element
